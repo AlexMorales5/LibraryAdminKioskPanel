@@ -1,0 +1,87 @@
+/* Set the font family for the entire body */
+body {
+  font-family: Arial, sans-serif;
+  /* Use CSS Grid for layout */
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  grid-template-rows: auto auto 1fr; /* Three rows with the last one taking remaining space */
+  gap: 20px; /* Gap between grid items */
+  grid-template-areas:
+    "panel1 panel2" /* Define grid areas for panels 1 and 2 */
+    "panel3 panel3" /* Panel 3 spans two rows */
+    "panel4 panel4"; /* Panel 4 spans two rows */
+  padding: 20px; /* Add padding around the grid */
+  background-color: #2C2F33; /* Set background color to dark Discord grey */
+  color: #3498db; /* Set text color to blue */
+}
+
+/* Style for panel containers */
+.panel {
+  border: 2px solid #ffd700; /* Gold color border */
+  padding: 20px; /* Add padding inside panels */
+  background-color: #2C2F33; /* Set panel background color to dark Discord grey */
+}
+
+/* Style for labels */
+label {
+  display: block; /* Display labels as blocks */
+  margin-bottom: 5px; /* Add margin at the bottom of labels */
+  color: #3498db; /* Set label text color to blue */
+}
+
+/* Style for input fields */
+input {
+  width: calc(100% - 16px); /* Set input width */
+  padding: 8px; /* Add padding to inputs */
+  margin-bottom: 10px; /* Add margin at the bottom of inputs */
+}
+
+/* Style for buttons */
+button {
+  background-color: #00FFC1; /* Set button background color to mint green */
+  color: white; /* Set button text color to white */
+  padding: 10px; /* Add padding to buttons */
+  border: none; /* Remove button border */
+  cursor: pointer; /* Set cursor to pointer */
+}
+
+/* Hover style for buttons */
+button:hover {
+  background-color: #00CCA6; /* Set hover background color to lighter mint green */
+}
+
+/* Style for success messages */
+.green-text {
+  color: #00FFC1; /* Set success message text color to mint green */
+}
+
+/* Style for error messages */
+.red-text {
+  color: red; /* Set error message text color to red */
+}
+
+/* Style for panel 2 */
+#panel2 {
+  margin-left: auto; /* Align panel 2 to the right */
+  background-color: #2C2F33; /* Set background color to dark Discord grey */
+  color: #6201ff; /* Set text color to blue */
+}
+
+/* Style for panel 4 */
+#panel4 {
+  margin-left: auto; /* Align panel 4 to the right */
+}
+
+/* Style for library log table */
+#logTable {
+  color: #800080; /* Set text color to purple */
+  width: 100%; /* Set table width to 100% */
+  border-collapse: collapse; /* Collapse table borders */
+}
+
+/* Style for table headers and cells */
+#logTable th, #logTable td {
+  border: 1px solid #ffd700; /* Set border color to gold */
+  padding: 8px; /* Add padding to cells */
+  text-align: left; /* Align text to the left */
+}
