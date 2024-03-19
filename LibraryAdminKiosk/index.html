@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Set character encoding and viewport for responsive design -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  <!-- Link to external stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Left panel for setting maximum capacity and managing library -->
+  <div class="left-panel">
+    <!-- Panel 1: Set Maximum Capacity -->
+    <div class="panel" id="panel1">
+      <h3>Set Maximum Capacity</h3>
+      <!-- Input field for maximum capacity -->
+      <label for="maxCapacity">Max Capacity:</label>
+      <input type="text" id="maxCapacity" placeholder="Enter max capacity" />
+      <!-- Button to save changes -->
+      <button onclick="saveChanges()">Save Changes</button>
+      <!-- Success and error messages -->
+      <p id="successMessage1"></p>
+      <p id="errorMessage1"></p>
+    </div>
+
+    <!-- Panel 3: Manage Library -->
+    <div class="panel" id="panel3">
+      <h3>Manage Library</h3>
+      <!-- Input fields for person's name and ID -->
+      <label for="personName">Name:</label>
+      <input type="text" id="personName" placeholder="Enter name" /><br>
+      <label for="personID">ID (5 digits):</label>
+      <input type="text" id="personID" placeholder="Enter ID" /><br>
+      <!-- Buttons to add and remove person -->
+      <button onclick="addPerson()">Add Person</button>
+      <button onclick="removePerson()">Remove Person</button>
+      <!-- Error message for adding person -->
+      <p id="addError"></p>
+    </div>
+  </div>
+
+  <!-- Right panel for displaying current library count and library log -->
+  <div class="right-panel">
+    <!-- Panel 2: Current Library Count -->
+    <div class="panel" id="panel2">
+      <!-- Header for current library count, centered -->
+      <h3 style="text-align: center;">Current Library Count</h3>
+      <!-- Display current library count, centered -->
+      <p style="text-align: center;" id="libraryCount">0/100</p>
+    </div>
+
+    <!-- Panel 4: Library Log -->
+    <div class="panel" id="panel4">
+      <h3>Library Log</h3>
+      <!-- Table to display library log -->
+      <table id="logTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date/Time</th>
+            <th>Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <!-- Table body for dynamic content -->
+        <tbody id="logBody">
+          <!-- Table content will be added dynamically -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Link to external JavaScript file -->
+  <script src="script.js"></script>
+</body>
+</html>
