@@ -65,6 +65,12 @@ function addPerson() {
     return;
   }
 
+  // Check if the library has reached maximum capacity
+  if (CurLibNum >= MaxCapNum) {
+    addError.textContent = 'Maximum number of people in library reached.';
+    return;
+  }
+
   // Check if the name or ID is already signed in
   if (isNameInLibrary(person.fullName) && isIDInLibrary(id)) {
     addError.textContent = 'Name and ID already signed in';
