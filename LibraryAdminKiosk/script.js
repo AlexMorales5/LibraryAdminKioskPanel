@@ -56,22 +56,22 @@ function addPerson() {
     return;
   }
 
-  // Check if the name or ID is in the database
-  const isNameInDatabase = database.some(person => person.fullName === name);
-  const isIDInDatabase = database.some(person => person.id === id);
+  // Find the person in the database based on the provided ID
+  const person = database.find(person => person.id === id);
 
-  if (!isNameInDatabase && !isIDInDatabase) {
-    addError.textContent = 'Name/ID not in school database';
+  // Check if the person exists in the database
+  if (!person) {
+    addError.textContent = 'ID not in school database';
     return;
   }
 
   // Check if the name or ID is already signed in
-  if (isNameInLibrary(name) && isIDInLibrary(id)) {
+  if (isNameInLibrary(person.fullName) && isIDInLibrary(id)) {
     addError.textContent = 'Name and ID already signed in';
     return;
   }
 
-  if (isNameInLibrary(name)) {
+  if (isNameInLibrary(person.fullName)) {
     addError.textContent = 'Name already signed in';
     return;
   }
@@ -84,14 +84,14 @@ function addPerson() {
   // Increment current library count, add person to the library log, and update panels
   CurLibNum++;
   const timestamp = new Date();
-  libraryLog.push({ id, name, action: 'signed in', timestamp });
+  libraryLog.push({ id, name: person.fullName, action: 'signed in', timestamp });
   updatePanel2();
   updatePanel4();
   addError.textContent = '';
-  logUserInput({ action: 'addPerson', name, id, timestamp });
+  logUserInput({ action: 'addPerson', name: person.fullName, id, timestamp });
 
   // Send data to the server
-  sendDataToServer({ action: 'addPerson', name, id, timestamp });
+  sendDataToServer({ action: 'addPerson', name: person.fullName, id, timestamp });
 }
 
 // Function to check if a name is already in the library
