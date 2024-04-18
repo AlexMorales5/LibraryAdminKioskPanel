@@ -134,7 +134,7 @@ function removePerson() {
   }
 
   // Find the person in the library log
-  const index = libraryLog.findIndex(entry => entry.id === id && entry.name === name && entry.action === 'signed in');
+  const index = libraryLog.findIndex(entry => entry.id === id || entry.name === name && entry.action === 'signed in');
 
   if (index === -1) {
     addError.textContent = 'Person not found in the library.';
