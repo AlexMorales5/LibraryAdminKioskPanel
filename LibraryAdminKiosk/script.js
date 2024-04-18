@@ -3,6 +3,13 @@ let MaxCapNum = 100;
 let CurLibNum = 0;
 let libraryLog = [];
 
+// Test database containing a list/array of objects with full names and 5-digit IDs
+const database = [
+  { fullName: "John Doe", id: "12345" },
+  { fullName: "Jane Smith", id: "67890" },
+  // Add more test data if needed
+];
+
 // Function to save changes made to the maximum capacity
 function saveChanges() {
   // Get input elements and success/error message placeholders
@@ -49,9 +56,12 @@ function addPerson() {
     return;
   }
 
-  // Check if the maximum capacity has been reached
-  if (CurLibNum >= MaxCapNum) {
-    addError.textContent = 'Maximum number of people in library reached.';
+  // Check if the name or ID is in the database
+  const isNameInDatabase = database.some(person => person.fullName === name);
+  const isIDInDatabase = database.some(person => person.id === id);
+
+  if (!isNameInDatabase && !isIDInDatabase) {
+    addError.textContent = 'Name/ID not in school database';
     return;
   }
 
@@ -79,6 +89,9 @@ function addPerson() {
   updatePanel4();
   addError.textContent = '';
   logUserInput({ action: 'addPerson', name, id, timestamp });
+
+  // Send data to the server
+  sendDataToServer({ action: 'addPerson', name, id, timestamp });
 }
 
 // Function to check if a name is already in the library
@@ -105,6 +118,16 @@ function removePerson() {
     return;
   }
 
+  // Check if the name or ID is in the database
+  const isNameInDatabase = database.some(person => person.fullName === name);
+  const isIDInDatabase = database.some(person => person.id === id);
+
+  if (!isNameInDatabase && !isIDInDatabase) {
+    addError.textContent = 'Name/ID not in school database';
+    return;
+  }
+
+  // Find the person in the library log
   const index = libraryLog.findIndex(entry => entry.id === id && entry.name === name && entry.action === 'signed in');
 
   if (index === -1) {
@@ -112,6 +135,7 @@ function removePerson() {
     return;
   }
 
+  // Decrement current library count, update action to 'signed out', and update panels
   CurLibNum--;
   libraryLog[index].action = 'signed out';
   libraryLog[index].timestamp = new Date();
@@ -119,7 +143,11 @@ function removePerson() {
   updatePanel4();
   addError.textContent = '';
   logUserInput({ action: 'removePerson', name, id, timestamp: libraryLog[index].timestamp });
+
+  // Send data to the server
+  sendDataToServer({ action: 'removePerson', name, id, timestamp: libraryLog[index].timestamp });
 }
+
 
 // Function to update the library log panel
 function updatePanel4() {
@@ -137,4 +165,23 @@ function updatePanel4() {
 function logUserInput(data) {
   // Here, you can log user input data to your desired storage or API.
   console.log(data);
+}
+
+// Function to send data to the server
+function sendDataToServer(data) {
+  fetch('/sendData', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => console.log('Data sent to server:', data))
+  .catch(error => console.error('Error sending data to server:', error));
 }
